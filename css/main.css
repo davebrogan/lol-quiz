@@ -1,0 +1,72 @@
+/*lol surprise quiz main css*/
+main {
+    max-width: 60em;
+    margin: 0 auto 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul#question-wrapper {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+form.outer-form {
+    padding: 2em;
+    border: 1px solid black;
+    margin-bottom: 30px;
+    display: none;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+#show-question {
+    display: block;
+}
+
+ol.answer-list {
+    padding: 1em;
+    list-style-type: none;
+}
+
+ol.answer-list li.answer-item {
+    margin-bottom: 10px;
+}
+
+span#question-number, span#question-total {
+  font-weight: bold;
+}
+
+#direction-block {
+    display: flex;
+    //flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2em;
+    width: 100%;
+}
+
+#answer-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-block {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#answer-block button, #direction-block button {
+  padding: 1em;
+  height: 70px;
+  width: 200px;
+}
