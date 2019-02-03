@@ -96,6 +96,9 @@ function makeQuestionAndAnswers(i) {
     for (var j = 0; j < 4; j++) {
         innerList.innerHTML += '<li class="answer-item">' + '<input type="radio" name="answer" value="1">' + allQuestions[i].choices[j] + '</li>';
     }
+    let firstAnswer = innerList.firstChild.firstChild;
+    firstAnswer.checked = true;
+    firstAnswer.focus();
 }
 
 
@@ -105,6 +108,7 @@ allQuestions.forEach(function (el,i) {
 });
 
 var questionCardsNodes = document.querySelectorAll('.outer-form');
+var allAnswers = document.getElementsByTagName('ol');
 //initially hide the submit button
 submitButton.setAttribute('style', 'display:none;');
 
@@ -145,6 +149,7 @@ function questionMove3(buttonId) {
     }
   }
 
+  /*****************next and previous*********************/
   if (currentIndex === 0) {
     if (buttonId === 'next') {
       if (checkInputsOn(currentIndex)) {
@@ -152,11 +157,11 @@ function questionMove3(buttonId) {
       } else {
         questionCardsNodes.item(currentIndex).removeAttribute('id');
         questionCardsNodes.item(currentIndex + 1).setAttribute('id', idName);
+        allAnswers.item(currentIndex + 1).firstChild.firstElementChild.focus();
         questionCount.innerHTML = currentIndex + 2;
       }
     }
   }
-
   if (currentIndex === lastItem) {
     if (buttonId === 'prev') {
       questionCardsNodes.item(currentIndex).removeAttribute('id');
@@ -171,7 +176,6 @@ function questionMove3(buttonId) {
       }
     }
   }
-
   if ((currentIndex > 0) && (currentIndex < lastItem)) {
     //questionCardsNodes.item(currentIndex).removeAttribute('id');
     if (buttonId === 'prev') {
@@ -184,11 +188,13 @@ function questionMove3(buttonId) {
         } else {
             questionCardsNodes.item(currentIndex).removeAttribute('id');
             questionCardsNodes.item(currentIndex + 1).setAttribute('id', idName);
+            allAnswers.item(currentIndex + 1).firstChild.firstElementChild.focus();
             questionCount.innerHTML = currentIndex + 2;
         }
     }
   }
 }
+/**********************************/
 
 function keyedMove(e) {
     var event = window.event ? window.event : e;
@@ -207,6 +213,7 @@ function keyedMove(e) {
      }
  });
 
+
 function tallyScore() {
     answers.forEach(function(answer,i) {
         if (answer === allQuestions[i].correctAnswer) {
@@ -216,9 +223,9 @@ function tallyScore() {
     var perfScore;
     if (totalCorrect === allQuestions.length) {
         perfScore = "Congrats. You got a PERFECT SCORE!!!";
-        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + "answers correct.<br>" + perfScore;
+        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>" + perfScore;
     } else {
-        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + "answers correct.<br>";
+        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>";
     }
 
 }
@@ -239,7 +246,7 @@ function checkAnswers() {
 
 
 //need to reset all nodes except 0
-function resetGame(qualifiedName) {
+function resetGame() {
     totalCorrect = 0;
     allButtons.forEach(function(button) {
         return button.checked = false;
@@ -249,6 +256,10 @@ function resetGame(qualifiedName) {
         el.removeAttribute('id');
     });
     questionCardsNodes.item(0).setAttribute('id', 'show-question');
+    Array.from(allAnswers).forEach(function(el) {
+        el.firstChild.firstChild.checked = true;
+    });
+    allAnswers.item(0).firstChild.firstElementChild.focus();
     directionBlock.removeAttribute('style');
     answerBlock.setAttribute('style', 'display:none');
     document.getElementById('next').removeAttribute('style');
