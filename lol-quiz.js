@@ -5,17 +5,18 @@
 other ideas:
 make wrong answers red and correct answers green.
 or put an x by the wrong answer and a check by the right one.
+show after 'submit answers'
 */
 
 //to do's
 //make the onclicks in markup eventhandlers in JS
-//auto focus on question to allow selecting answer with up dawn arrow keys
 //enter answer (next) with enter (return) key
+//figure out what to do with submit answers. maybe have it pulse a little when quiz is finished to make it stand out from "next"
 
 var allQuestions = [
     {
         question: "LOL Surprise Dolls are made by which company?",
-        choices: ["Matel", "MGA Entertainment", "Funko", "Fisher Price"],
+        choices: ["Mattel", "MGA Entertainment", "Funko", "Fisher Price"],
         correctAnswer: 1
     },
     {
@@ -63,7 +64,7 @@ var allQuestions = [
 //global NodeLists, HTMLCollections and other html element variables
 let questionWrapper = document.getElementById('question-wrapper');
 let allButtons = document.getElementsByName('answer');
-let nc = document.getElementById('number-correct');
+let numberCorrect = document.getElementById('number-correct');
 let answerLists = document.getElementsByClassName('answer-list');
 let answerBlock = document.getElementById('answer-block');
 let directionBlock = document.getElementById('direction-block');
@@ -77,7 +78,7 @@ let submitButton = document.getElementById('submit-answers');
 let answers = [];
 let totalCorrect = 0;
 //answer output
-nc.innerHTML = '...';
+numberCorrect.innerHTML = '...';
 
 //create html based on the allQuestions array object
 function makeQuestionAndAnswers(i) {
@@ -223,9 +224,9 @@ function tallyScore() {
     var perfScore;
     if (totalCorrect === allQuestions.length) {
         perfScore = "Congrats. You got a PERFECT SCORE!!!";
-        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>" + perfScore;
+        return numberCorrect.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>" + perfScore;
     } else {
-        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>";
+        return numberCorrect.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>";
     }
 
 }
@@ -266,6 +267,6 @@ function resetGame() {
     submitButton.setAttribute('style', 'display:none;');
     currentQuestionNum = 1;
     questionCount.innerHTML = currentQuestionNum;
-    return nc.innerHTML = '...';
+    return numberCorrect.innerHTML = '...';
 
 }
