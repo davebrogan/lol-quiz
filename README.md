@@ -5,3 +5,4 @@ A quiz based on LOL Suprise Dolls trivia and minutea. Questions are multiple cho
 
 ## Tech
 An exercise in vanilla JS.
+
