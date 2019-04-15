@@ -12,6 +12,9 @@ show after 'submit answers'
 //make the onclicks in markup eventhandlers in JS
 //enter answer (next) with enter (return) key
 //figure out what to do with submit answers. maybe have it pulse a little when quiz is finished to make it stand out from "next"
+//after last question is answered have the question panel disappear, move the "submit answers" button from and center
+//display a "go back" button below it. Or it could be a back arrow with "go back" below it
+//hide elements with css state classes i.e. "-is-hidden"
 
 var allQuestions = [
     {
@@ -174,6 +177,9 @@ function questionMove3(buttonId) {
       } else {
         document.getElementById('next').setAttribute('style', 'display:none;');
         submitButton.removeAttribute('style');
+        questionCardsNodes.item(currentIndex).removeAttribute('id');
+        directionBlock.setAttribute('class', 'submit-state');
+        document.getElementById('prev').innerText = "Go Back";
       }
     }
   }
@@ -261,7 +267,7 @@ function resetGame() {
         el.firstChild.firstChild.checked = true;
     });
     allAnswers.item(0).firstChild.firstElementChild.focus();
-    directionBlock.removeAttribute('style');
+    directionBlock.removeAttribute('style').removeAttribute('class');
     answerBlock.setAttribute('style', 'display:none');
     document.getElementById('next').removeAttribute('style');
     submitButton.setAttribute('style', 'display:none;');
