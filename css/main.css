@@ -32,12 +32,12 @@ input[type="radio"] {
     display: block;
 }
 
-ol.answer-list {
+ul.answer-list {
     padding: 1em;
     list-style-type: none;
 }
 
-ol.answer-list li.answer-item {
+ul.answer-list li.answer-item {
     margin-bottom: 10px;
 }
 

@@ -6,6 +6,9 @@ other ideas:
 make wrong answers red and correct answers green.
 or put an x by the wrong answer and a check by the right one.
 show after 'submit answers'
+display wrong answers with corrections to the user
+flatten css, remove cascading, BEM?
+make a "single page" version using AJAX
 */
 
 //to do's
@@ -15,6 +18,9 @@ show after 'submit answers'
 //after last question is answered have the question panel disappear, move the "submit answers" button from and center
 //display a "go back" button below it. Or it could be a back arrow with "go back" below it
 //hide elements with css state classes i.e. "-is-hidden"
+//is it accessible?
+//allow user to enter name
+
 
 var allQuestions = [
     {
@@ -93,7 +99,7 @@ function makeQuestionAndAnswers(i) {
     }
     questionWrapper.appendChild(makeOuterForm);
     makeOuterForm.innerHTML += '<li class="question">' + allQuestions[i].question + '</li>';
-    let innerList = document.createElement('ol');
+    let innerList = document.createElement('ul');
     innerList.setAttribute('type','a');
     innerList.setAttribute('class','answer-list');
     makeOuterForm.appendChild(innerList);
