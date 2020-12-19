@@ -1,38 +1,39 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>LOL Surprise Trivia Quiz</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
-    </head>
-    <body>
-        <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <main>
-           <h1>LOL Surprise!</h1>
-            <h2>Trivia Quiz</h2>
-            <p id="question-counter">Question <span id="question-number"></span> of <span id="question-total"></span></p>
-            <ul id="question-wrapper"></ul>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>LOL Surprise Trivia Quiz</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<main>
+    <h1>LOL Surprise Trivia Quiz</h1>
+    <p id="question-counter">Question <span id="question-number"></span> of <span id="question-total"></span></p>
+    <ul id="question-wrapper">
+    </ul>
 
-            <div id="direction-block">
-                <button id="prev" onclick="questionMove3(this.id)">Previous</button>
-                <button id="next" onclick="questionMove3(this.id)">Next</button>
-                <button id="submit-answers" value="" onclick="checkAnswers(0)">Submit Answers</button>
-            </div>
+    <div id="direction-block">
+        <button id="prev" onclick="questionMove3(this.id)">Previous</button>
+        <button id="next" onclick="questionMove3(this.id)">Next</button>
+        <button id="submit-answers" value="" onclick="checkAnswers(0)">Submit Answers</button>
+    </div>
 
-            <div style="display:none;" id="answer-block">
-              <div class="score-block">
-                  <h3>Score:</h3>
-                  <p>You got <span id="number-correct"></span></p>
-              </div>
-              <button id="reset-quiz" value="" onclick="resetGame()">Reset Game</button>
-            </div>
-        </main>
-    </body>
-    <script src="lol-quiz.js"></script>
+    <div style="display:none;" id="answer-block">
+        <div class="score-block">
+            <h3>Score:</h3>
+            <p>You got <span id="number-correct"></span></p>
+        </div>
+        <button id="reset-quiz" value="" onclick="resetGame()">Reset Game</button>
+    </div>
+</main>
+</body>
+<!--    <script src="lol-quiz-v4.js"></script>-->
+<script src="lol-quiz.js"></script>
 </html>

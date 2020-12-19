@@ -5,7 +5,6 @@
 other ideas:
 make wrong answers red and correct answers green.
 or put an x by the wrong answer and a check by the right one.
-show after 'submit answers'
 display wrong answers with corrections to the user
 flatten css, remove cascading, BEM?
 make a "single page" version using AJAX
@@ -13,19 +12,15 @@ make a "single page" version using AJAX
 
 //to do's
 //make the onclicks in markup eventhandlers in JS
+//auto focus on question to allow selecting answer with up dawn arrow keys
 //enter answer (next) with enter (return) key
-//figure out what to do with submit answers. maybe have it pulse a little when quiz is finished to make it stand out from "next"
-//after last question is answered have the question panel disappear, move the "submit answers" button from and center
-//display a "go back" button below it. Or it could be a back arrow with "go back" below it
-//hide elements with css state classes i.e. "-is-hidden"
 //is it accessible?
 //allow user to enter name
-
 
 var allQuestions = [
     {
         question: "LOL Surprise Dolls are made by which company?",
-        choices: ["Mattel", "MGA Entertainment", "Funko", "Fisher Price"],
+        choices: ["Matel", "MGA Entertainment", "Funko", "Fisher Price"],
         correctAnswer: 1
     },
     {
@@ -73,7 +68,7 @@ var allQuestions = [
 //global NodeLists, HTMLCollections and other html element variables
 let questionWrapper = document.getElementById('question-wrapper');
 let allButtons = document.getElementsByName('answer');
-let numberCorrect = document.getElementById('number-correct');
+let nc = document.getElementById('number-correct');
 let answerLists = document.getElementsByClassName('answer-list');
 let answerBlock = document.getElementById('answer-block');
 let directionBlock = document.getElementById('direction-block');
@@ -87,7 +82,7 @@ let submitButton = document.getElementById('submit-answers');
 let answers = [];
 let totalCorrect = 0;
 //answer output
-numberCorrect.innerHTML = '...';
+nc.innerHTML = '...';
 
 //create html based on the allQuestions array object
 function makeQuestionAndAnswers(i) {
@@ -106,9 +101,6 @@ function makeQuestionAndAnswers(i) {
     for (var j = 0; j < 4; j++) {
         innerList.innerHTML += '<li class="answer-item">' + '<input type="radio" name="answer" value="1">' + allQuestions[i].choices[j] + '</li>';
     }
-    let firstAnswer = innerList.firstChild.firstChild;
-    firstAnswer.checked = true;
-    firstAnswer.focus();
 }
 
 
@@ -118,7 +110,6 @@ allQuestions.forEach(function (el,i) {
 });
 
 var questionCardsNodes = document.querySelectorAll('.outer-form');
-var allAnswers = document.getElementsByTagName('ol');
 //initially hide the submit button
 submitButton.setAttribute('style', 'display:none;');
 
@@ -132,82 +123,77 @@ questionTotal.innerHTML = questionsLength;
 
 //log answers, forward and back button behavior, input validation with alert for empty input
 function questionMove3(buttonId) {
-  let idName = 'show-question';
-  let lastItem = questionCardsNodes.length - 1;
-  let currentIndex;
+    let idName = 'show-question';
+    let lastItem = questionCardsNodes.length - 1;
+    let currentIndex;
 
-  for (var i = 0; i < questionCardsNodes.length; i++) {
-    if (questionCardsNodes.item(i).getAttribute('id') === idName) {
-      currentIndex = i;
-      break;
-    }
-  }
-
-  function checkInputsOn(n) {
-    let radioList = questionCardsNodes.item(n).getElementsByTagName('input');
-    let checkCount = 0;
-    for (var i = 0; i < radioList.length; i++) {
-      if (radioList[i].checked === true) {
-        checkCount++;
-      }
-    }
-    if (checkCount < 1) {
-      alert('Please check an answer. You can go back and change it later if you wish.');
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /*****************next and previous*********************/
-  if (currentIndex === 0) {
-    if (buttonId === 'next') {
-      if (checkInputsOn(currentIndex)) {
-        return;
-      } else {
-        questionCardsNodes.item(currentIndex).removeAttribute('id');
-        questionCardsNodes.item(currentIndex + 1).setAttribute('id', idName);
-        allAnswers.item(currentIndex + 1).firstChild.firstElementChild.focus();
-        questionCount.innerHTML = currentIndex + 2;
-      }
-    }
-  }
-  if (currentIndex === lastItem) {
-    if (buttonId === 'prev') {
-      questionCardsNodes.item(currentIndex).removeAttribute('id');
-      questionCardsNodes.item(currentIndex - 1).setAttribute('id', idName);
-      questionCount.innerHTML = currentIndex;
-    } else if (buttonId === 'next') {
-      if (checkInputsOn(currentIndex)) {
-        return;
-      } else {
-        document.getElementById('next').setAttribute('style', 'display:none;');
-        submitButton.removeAttribute('style');
-        questionCardsNodes.item(currentIndex).removeAttribute('id');
-        directionBlock.setAttribute('class', 'submit-state');
-        document.getElementById('prev').innerText = "Go Back";
-      }
-    }
-  }
-  if ((currentIndex > 0) && (currentIndex < lastItem)) {
-    //questionCardsNodes.item(currentIndex).removeAttribute('id');
-    if (buttonId === 'prev') {
-          questionCardsNodes.item(currentIndex).removeAttribute('id');
-          questionCardsNodes.item(currentIndex - 1).setAttribute('id', idName);
-          questionCount.innerHTML = currentIndex;
-    } else if (buttonId === 'next') {
-        if (checkInputsOn(currentIndex)) {
-            return;
-        } else {
-            questionCardsNodes.item(currentIndex).removeAttribute('id');
-            questionCardsNodes.item(currentIndex + 1).setAttribute('id', idName);
-            allAnswers.item(currentIndex + 1).firstChild.firstElementChild.focus();
-            questionCount.innerHTML = currentIndex + 2;
+    for (var i = 0; i < questionCardsNodes.length; i++) {
+        if (questionCardsNodes.item(i).getAttribute('id') === idName) {
+            currentIndex = i;
+            break;
         }
     }
-  }
+
+    function checkInputsOn(n) {
+        let radioList = questionCardsNodes.item(n).getElementsByTagName('input');
+        let checkCount = 0;
+        for (var i = 0; i < radioList.length; i++) {
+            if (radioList[i].checked === true) {
+                checkCount++;
+            }
+        }
+        if (checkCount < 1) {
+            alert('Please check an answer. You can go back and change it later if you wish.');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    if (currentIndex === 0) {
+        if (buttonId === 'next') {
+            if (checkInputsOn(currentIndex)) {
+                return;
+            } else {
+                questionCardsNodes.item(currentIndex).removeAttribute('id');
+                questionCardsNodes.item(currentIndex + 1).setAttribute('id', idName);
+                questionCount.innerHTML = currentIndex + 2;
+            }
+        }
+    }
+
+    if (currentIndex === lastItem) {
+        if (buttonId === 'prev') {
+            questionCardsNodes.item(currentIndex).removeAttribute('id');
+            questionCardsNodes.item(currentIndex - 1).setAttribute('id', idName);
+            questionCount.innerHTML = currentIndex;
+        } else if (buttonId === 'next') {
+            if (checkInputsOn(currentIndex)) {
+                return;
+            } else {
+                document.getElementById('next').setAttribute('style', 'display:none;');
+                submitButton.removeAttribute('style');
+            }
+        }
+    }
+
+    if ((currentIndex > 0) && (currentIndex < lastItem)) {
+        //questionCardsNodes.item(currentIndex).removeAttribute('id');
+        if (buttonId === 'prev') {
+            questionCardsNodes.item(currentIndex).removeAttribute('id');
+            questionCardsNodes.item(currentIndex - 1).setAttribute('id', idName);
+            questionCount.innerHTML = currentIndex;
+        } else if (buttonId === 'next') {
+            if (checkInputsOn(currentIndex)) {
+                return;
+            } else {
+                questionCardsNodes.item(currentIndex).removeAttribute('id');
+                questionCardsNodes.item(currentIndex + 1).setAttribute('id', idName);
+                questionCount.innerHTML = currentIndex + 2;
+            }
+        }
+    }
 }
-/**********************************/
 
 function keyedMove(e) {
     var event = window.event ? window.event : e;
@@ -216,16 +202,15 @@ function keyedMove(e) {
     } else if (event.key === 'ArrowRight') {
         return 'next';
     }
- }
+}
 
- document.addEventListener('keydown', function(event) {
-     if (event.key === 'ArrowLeft' || 'ArrowRight') {
-         questionMove3(keyedMove(event));
-     } else if (event.key === 'Return' || 'Enter') {
-         questionMove3('next'); //not working
-     }
- });
-
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'ArrowLeft' || 'ArrowRight') {
+        questionMove3(keyedMove(event));
+    } else if (event.key === 'Return' || 'Enter') {
+        questionMove3('next'); //not working
+    }
+});
 
 function tallyScore() {
     answers.forEach(function(answer,i) {
@@ -236,16 +221,16 @@ function tallyScore() {
     var perfScore;
     if (totalCorrect === allQuestions.length) {
         perfScore = "Congrats. You got a PERFECT SCORE!!!";
-        return numberCorrect.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>" + perfScore;
+        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + "answers correct.<br>" + perfScore;
     } else {
-        return numberCorrect.innerHTML = totalCorrect + " out of " + allQuestions.length + " answers correct.<br>";
+        return nc.innerHTML = totalCorrect + " out of " + allQuestions.length + "answers correct.<br>";
     }
 
 }
 
 
 function checkAnswers() {
-     for (var i = 0; i < answerLists.length; i++) {
+    for (var i = 0; i < answerLists.length; i++) {
         answerLists.item(i).childNodes.forEach(function(btn,position) {
             if (btn.firstChild.checked) {
                 answers.push(position);
@@ -259,7 +244,7 @@ function checkAnswers() {
 
 
 //need to reset all nodes except 0
-function resetGame() {
+function resetGame(qualifiedName) {
     totalCorrect = 0;
     allButtons.forEach(function(button) {
         return button.checked = false;
@@ -269,16 +254,12 @@ function resetGame() {
         el.removeAttribute('id');
     });
     questionCardsNodes.item(0).setAttribute('id', 'show-question');
-    Array.from(allAnswers).forEach(function(el) {
-        el.firstChild.firstChild.checked = true;
-    });
-    allAnswers.item(0).firstChild.firstElementChild.focus();
-    directionBlock.removeAttribute('style').removeAttribute('class');
+    directionBlock.removeAttribute('style');
     answerBlock.setAttribute('style', 'display:none');
     document.getElementById('next').removeAttribute('style');
     submitButton.setAttribute('style', 'display:none;');
     currentQuestionNum = 1;
     questionCount.innerHTML = currentQuestionNum;
-    return numberCorrect.innerHTML = '...';
+    return nc.innerHTML = '...';
 
 }

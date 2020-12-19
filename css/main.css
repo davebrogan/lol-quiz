@@ -47,21 +47,12 @@ span#question-number, span#question-total {
 
 #direction-block {
     display: flex;
+//flex-direction: column;
     justify-content: space-around;
     align-items: center;
     padding: 2em;
     width: 100%;
 }
-
-.submit-state {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 2em;
-    width: 100%;
-    flex-direction: column-reverse;
-}
-
 
 #answer-block {
     display: flex;
@@ -78,16 +69,4 @@ span#question-number, span#question-total {
     padding: 1em;
     height: 70px;
     width: 200px;
-    background-color: pink;
-}
-
-.submit-state #submit-answers {
-    width: 300px;
-    height: 150px;
-    margin: 50px;
-}
-.submit-state #prev {
-    width: 100px;
-    height: 50px;
-    font-size: .8em;
 }
