@@ -11,19 +11,18 @@
     </head>
     <body>
         <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <main>
            <h1>LOL Surprise!</h1>
             <h2>Trivia Quiz</h2>
             <p id="question-counter">Question <span id="question-number"></span> of <span id="question-total"></span></p>
-            <ul id="question-wrapper">
-            </ul>
+            <ul id="question-wrapper"></ul>
 
             <div id="direction-block">
-              <button id="prev" onclick="questionMove3(this.id)">Previous</button>
-              <button id="next" onclick="questionMove3(this.id)">Next</button>
-              <button id="submit-answers" value="" onclick="checkAnswers(0)">Submit Answers</button>
+                <button id="prev" onclick="questionMove3(this.id)">Previous</button>
+                <button id="next" onclick="questionMove3(this.id)">Next</button>
+                <button id="submit-answers" value="" onclick="checkAnswers(0)">Submit Answers</button>
             </div>
 
             <div style="display:none;" id="answer-block">
